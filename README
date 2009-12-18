@@ -1,0 +1,44 @@
+Passwordless/scriptable X509 CA library
+
+------------------------------------------------------------------------------
+** This should only be used for test situations **
+
+    http://github.com/nimbusproject/nimbus_ezpz_ca
+
+    http://www.apache.org/licenses/LICENSE-2.0
+    Copyright 2010 University of Chicago
+
+    This library is used from scripts or Java.  Example invocations can be
+    found in the bin directory, the "autocontainer/bin" Nimbus directory, and
+    the "web/src/python/nimbusweb/setup/autoca.py" Nimbus file.
+------------------------------------------------------------------------------
+
+Prerequisites: Java 1.4, Ant 1.6
+
+Build: ant dist
+
+Usage example of the bin/ samples:
+
+# Create CA cert/key
+
+CA_BASENAME=fakeca
+mkdir /tmp/123
+./bin/create-ca.sh /tmp/123 $CA_BASENAME
+
+
+# Create a trusted certificate directory with expected file names
+
+CA_HASH=`openssl x509 -hash -noout -in /tmp/123/$CA_BASENAME.0`
+CA_PUB=$CAHASH.0
+CA_SP=$CAHASH.signing_policy
+mkdir /tmp/trusted-certs
+cp /tmp/123/$CA_BASENAME.0 /tmp/trusted-certs/$CA_PUB
+cp /tmp/123/$CA_BASENAME.signing_policy /tmp/trusted-certs/$CA_SP
+
+
+# Create a cert
+
+CAPRIV=/tmp/123/private-key-$CA_BASENAME.pem
+HOSTNAME=example.com
+mkdir /tmp/hostcertdir
+./bin/create-cert.sh /tmp/hostcertdir $HOSTNAME hostcert.pem hostkey.pem $CA_PUB $CAPRIV
