@@ -13,7 +13,7 @@ Passwordless/scriptable X509 CA library
     the "web/src/python/nimbusweb/setup/autoca.py" Nimbus file.
 ------------------------------------------------------------------------------
 
-Prerequisites: Java 1.4, Ant 1.6
+Prerequisites: Java 1.5+, Ant 1.6+
 
 Build: ant dist
 
