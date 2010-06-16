@@ -21,24 +21,35 @@ Usage example of the bin/ samples:
 
 # Create CA cert/key
 
-CA_BASENAME=fakeca
-mkdir /tmp/123
-./bin/create-ca.sh /tmp/123 $CA_BASENAME
+CA_BASENAME=testca
+mkdir /tmp/ezpz_test
+./bin/create-ca.sh /tmp/ezpz_test $CA_BASENAME
 
 
 # Create a trusted certificate directory with expected file names
 
-CA_HASH=`openssl x509 -hash -noout -in /tmp/123/$CA_BASENAME.0`
-CA_PUB=$CAHASH.0
-CA_SP=$CAHASH.signing_policy
-mkdir /tmp/trusted-certs
-cp /tmp/123/$CA_BASENAME.0 /tmp/trusted-certs/$CA_PUB
-cp /tmp/123/$CA_BASENAME.signing_policy /tmp/trusted-certs/$CA_SP
+mkdir /tmp/ezpz_test/trusted-certs
+CA_HASH=`openssl x509 -hash -noout -in /tmp/ezpz_test/$CA_BASENAME.0`
+CA_PUB="/tmp/ezpz_test/trusted-certs/$CA_HASH.0"
+CA_SP="/tmp/ezpz_test/trusted-certs/$CA_HASH.signing_policy"
+cp /tmp/ezpz_test/$CA_BASENAME.0 $CA_PUB
+cp /tmp/ezpz_test/$CA_BASENAME.signing_policy $CA_SP
 
 
 # Create a cert
 
-CAPRIV=/tmp/123/private-key-$CA_BASENAME.pem
+CA_PRIV=/tmp/ezpz_test/private-key-$CA_BASENAME.pem
 HOSTNAME=example.com
-mkdir /tmp/hostcertdir
-./bin/create-cert.sh /tmp/hostcertdir $HOSTNAME hostcert.pem hostkey.pem $CA_PUB $CAPRIV
+mkdir /tmp/ezpz_test/hostcertdir
+./bin/create-cert.sh /tmp/ezpz_test/hostcertdir $HOSTNAME hostcert.pem hostkey.pem $CA_PUB $CA_PRIV
+
+
+# Create a JKS keystore for the host cert
+
+HOSTCERT=/tmp/ezpz_test/hostcertdir/hostcert.pem
+HOSTKEY=/tmp/ezpz_test/hostcertdir/hostkey.pem
+JKS_TO_CREATE=/tmp/ezpz_test/hostcertdir/hostcert.jks
+JKS_PASSWORD="3con12oij32d"
+
+./bin/create-jks.sh $HOSTCERT $HOSTKEY $JKS_TO_CREATE $JKS_PASSWORD
+

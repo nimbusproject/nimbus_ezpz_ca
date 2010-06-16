@@ -12,17 +12,20 @@ source $LIBDIR/common-env.sh
 
 if [ ! -d $1 ]; then
   echo "Directory does not exist: $1" >&2
+  echo "See README" >&2
   exit 1
 fi
 
 $JAVA_BIN $JAVA_OPTS $EXE_CREATE_NEW_CA $1 $2
 if [ $? -ne 0 ]; then
   echo "Problem creating new certificate authority, exiting." >&2
+  echo "See README" >&2
   exit 1
 fi
 
 CA_PUBPEM="$1/$2.pem"
 CA_PUBPEM2="$1/$2.0"
+CA_CRL="$1/$2.r0"
 CA_SIGNING_POLICY="$1/$2.signing_policy"
 CA_PRIVPEM="$1/private-key-$2.pem"
 
@@ -35,6 +38,12 @@ fi
 $JAVA_BIN $JAVA_OPTS $EXE_WRITE_SIGNING_POLICY $CA_PUBPEM $CA_SIGNING_POLICY
 if [ $? -ne 0 ]; then
   echo "Problem creating new certificate authority signing policy, exiting." >&2
+  exit 1
+fi
+
+$JAVA_BIN $JAVA_OPTS $EXE_CREATE_CRL $CA_CRL $CA_PUBPEM $CA_PRIVPEM
+if [ $? -ne 0 ]; then
+  echo "Problem creating new certificate authority revocation list, exiting." >&2
   exit 1
 fi
 

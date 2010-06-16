@@ -79,6 +79,12 @@ export EXE_CREATE_NEW_CERT
 EXE_WRITE_SIGNING_POLICY="org.nimbustools.auto_common.ezpz_ca.SigningPolicy"
 export EXE_WRITE_SIGNING_POLICY
 
+EXE_CREATE_CRL="org.nimbustools.auto_common.ezpz_ca.GenerateCRL"
+export EXE_CREATE_CRL
+
+EXE_KEYSTORE_FROM_PEM="org.nimbustools.auto_common.ezpz_ca.KeystoreFromPEM"
+export EXE_KEYSTORE_FROM_PEM
+
 EXE_FIND_CA_PUBPEM="org.nimbustools.auto_common.ezpz_ca.FindCAPubFile"
 EXE_FIND_CA_PRIVPEM="org.nimbustools.auto_common.ezpz_ca.FindCAPrivFile"
 export EXE_FIND_CA_PUBPEM EXE_FIND_CA_PRIVPEM

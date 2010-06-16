@@ -8,6 +8,11 @@ if [ ! -f $LIBDIR/common-env.sh ]; then
 fi
 source $LIBDIR/common-env.sh
 
+if [ $# -ne 6 ]; then
+  echo "Not enough arguments, see README" >&2
+  exit 1
+fi
+
 TARGET_DIR=$1
 NEW_CN=$2
 PUBPEM=$3
@@ -20,7 +25,7 @@ PRIVCA=$6
 
 HOSTDN=`$JAVA_BIN $JAVA_OPTS $EXE_CREATE_NEW_CERT $TARGET_DIR $NEW_CN $PUBPEM $PRIVPEM $PUBCA $PRIVCA`
 if [ $? -ne 0 ]; then
-  echo "Problem creating cert, exiting."
+  echo "Problem creating cert, exiting." >&2
   exit 1
 fi
 
@@ -28,7 +33,7 @@ NEW_PRIVPEM="$TARGET_DIR/$PRIVPEM"
 
 chmod 400 $NEW_PRIVPEM
 if [ $? -ne 0 ]; then
-  echo "Problem setting permissions on $NEW_PRIVPEM"
+  echo "Problem setting permissions on $NEW_PRIVPEM" >&2
   exit 1
 fi
 
