@@ -249,7 +249,8 @@ public class EzPzCA {
         this.certGen.addExtension(X509Extensions.KeyUsage,
                                   true,
                                   new KeyUsage(KeyUsage.digitalSignature |
-                                               KeyUsage.keyEncipherment));
+                                               KeyUsage.keyEncipherment |
+                                               KeyUsage.dataEncipherment));
     }
 
     private void setGenerator(String targetDN,
