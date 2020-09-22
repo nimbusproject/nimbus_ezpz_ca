@@ -8,8 +8,8 @@ For more information, please read the `news announcement <http://www.nimbusproje
 Passwordless/scriptable X509 CA library
 =======================================
 
-----
-** This should only be used for test situations **
+
+**This should only be used for test situations**
 
     http://github.com/nimbusproject/nimbus_ezpz_ca
 
@@ -19,7 +19,6 @@ Passwordless/scriptable X509 CA library
     This library is used from scripts or Java.  Example invocations can be
     found in the bin directory, the "autocontainer/bin" Nimbus directory, and
     the "web/src/python/nimbusweb/setup/autoca.py" Nimbus file.
-------------------------------------------------------------------------------
 
 Prerequisites: Java 1.5+, Ant 1.6+
 
